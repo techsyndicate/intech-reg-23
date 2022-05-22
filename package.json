@@ -1,0 +1,27 @@
+{
+  "name": "intech-register-website",
+  "version": "0.0.1",
+  "description": "Intech Registeratiion Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/techsyndicate/intech-registeration.git"
+  },
+  "author": "gamer-1478",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/techsyndicate/intech-registeration/issues"
+  },
+  "homepage": "https://github.com/techsyndicate/intech-registeration#readme",
+  "dependencies": {
+    "discord.js": "^13.7.0",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1"
+  }
+}
