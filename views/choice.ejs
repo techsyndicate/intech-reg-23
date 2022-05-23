@@ -1,8 +1,0 @@
-        <div class="reg-form-2">
-            <p>Select Events You Would Like To Take Part In!</p>
-            <% for (i in events){ %>
-            <input type="radio" id="<%= events[i] %>" name="events" value="<%= events[i] %>">
-            <label for="<%= events[i] %>"><%= events[i] %></label><br>
-            <% } %>
-            <button class="inpt-sub" type="submit">Submit</button>
-        </div>

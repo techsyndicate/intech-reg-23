@@ -2,27 +2,33 @@
 const express = require("express");
 const IndexRouter = express.Router();
 
-events = [
-    "AppD",
-    "WebD",
+events = [[
+    "App Development",
+    "Web Development",
     "2D design",
-    "UI Design",
-    "3D Design",
-    "A / V editing",
+    "UI Design"
+], ["3D Design",
+    "A/V editing",
     "Quiz",
-    "Crossword",
+    "Crossword"
+], [
     "Cryptic Hunt",
     "Gaming",
     "Competitive Programming",
-    "Photography",
-    "Audio mixing",
+    "Photography"
+], [
+    "Audio Mixing",
     "Film Making",
-    "GD",
-    "Hardware",
+    "Group Discussion",
+    "Hardware"
+]
 ];
 
 IndexRouter.get("/", (req, res) => {
-    res.render("index", {events});
+    res.render("index", { events });
+});
+
+IndexRouter.post("/register", (req, res) => {
 });
 
 module.exports = IndexRouter;
