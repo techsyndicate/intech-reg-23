@@ -1,12 +1,159 @@
 <html>
-<form>
-    <input type="text" name="name" placeholder="Name">
-    <input type="date" name="dob" placeholder="Date of Birth">
-    <input type="text" name="email" placeholder="Offical Email">
-    <input type="text" name="phone" placeholder="Phone">
-    <input type="text" name='adno' placeholder="Admission Number">
-    <input type="password" name="pasw" placeholder="Password">
-    <input type="password" name="conpasw" placeholder="Confirm Password">
-    <input type="submit" value="Submit">
-</form>
+
+<body>
+    <div class="nav">
+        <img src="https://tswebsite22.netlify.app/assets/images/ts.png">
+    </div>
+    <div class="reg-container">
+        <h1 class="title">Register</h1>
+
+        <div class="reg-form">
+            <div class="reg-form-div-container">
+                <div class="reg-form-div">
+                    <p for="name">Name</p>
+                    <input type="text" name="name" placeholder="John Doe">
+                </div>
+                <div class="reg-form-div">
+                    <p for="dob">Date Of Birth</p>
+                    <input type="text" name="dob" placeholder="date/month/year" onfocus="(this.type='date')">
+                </div>
+            </div>
+            <div class="reg-form-div-container">
+                <div class="reg-form-div">
+                    <p for="email">School Email</p>
+                    <input type="text" name="email" placeholder="john.doe@ais.amity.edu">
+                </div>
+                <div class="reg-form-div">
+                    <p for="phone">Phone Number</p>
+                    <input type="number" name="phone" placeholder="9889889889">
+                </div>
+            </div>
+            <div class="reg-form-div-container">
+
+                <div class="reg-form-div">
+                    <p for="adno">Admission Number</p>
+                    <input type="number" name='adno' placeholder="1111">
+                </div>
+                <div class="reg-form-div">
+                    <p for="class">Grade/Class</p>
+                    <input type="number" name="class" placeholder="9">
+                </div>
+            </div>
+            <div class="reg-form-div-container">
+
+                <div class="reg-form-div">
+                    <p for="section">Section</p>
+                    <input type="text" name="section" placeholder="A">
+                </div>
+                <div class="reg-form-div">
+                    <p for="disname">Display Name</p>
+                    <input type="text" name="disname" placeholder="johnnygames">
+                </div>
+            </div>
+            <div class="reg-form-div-container">
+                <div class="reg-form-div">
+                    <p for="pasw">Password</p>
+                    <input type="password" name="pasw" placeholder="John@Doe@Password">
+                </div>
+                <div class="reg-form-div">
+                    <p for="conpasw">Confirm Password</p>
+                    <input type="password" name="conpasw" placeholder="John@Doe@Password">
+                </div>
+            </div>
+        </div>
+        <button class="inpt-sub" onClick="submit()">Continue</button>
+    </div>
+</body>
+
 </html>
+
+<script>
+    function submit () {
+        console.log('submit was clicked')
+    }
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+    .nav img {
+        width: 70px;
+        margin: 10px;
+    }
+
+    .title {
+        color: #16e16e;
+        width: 80vw;
+        font-size: 4rem;
+        font-weight: 600;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    body {
+        background-color: #000;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .inpt-sub {
+        margin-top: 15px;
+        width: 20vw !important;
+        padding-top: 1vw;
+        padding-bottom: 1vw;
+        background-color: #16e16e;
+        font-size: 1rem;
+        border-radius: 5px;
+        font-family: 'Outfit', sans-serif;
+        cursor: pointer;
+    }
+
+    .reg-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0;
+
+    }
+
+    .reg-form p {
+        width: 40vw;
+        color: #16e16e;
+        font-size: 1rem;
+        font-family: 'Outfit', sans-serif;
+
+    }
+
+    .reg-form-div {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1vw;
+        width: 40vw;
+    }
+
+    .reg-form-div-container {
+        display: flex;
+        width: 80vw;
+        justify-content: space-between;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .reg-form input {
+        height: 40px;
+        width: 30vw;
+        border-radius: 7px;
+        padding: 1.3vw;
+        background-color: #000;
+        border: #2C2A2A solid 2px;
+        font-size: 1rem;
+        color: #fff;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .reg-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
