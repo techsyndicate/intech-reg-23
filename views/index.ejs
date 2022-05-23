@@ -61,21 +61,23 @@
                 </div>
             </div>
         </div>
-        <button class="inpt-sub" onClick="submit()">Continue</button>
+        <div class="inpt-sub-div">
+            <button class="inpt-sub" onClick="submit()">Continue</button>
+        </div>
     </div>
 </body>
 
 </html>
 
 <script>
-    function submit () {
+    function submit() {
         console.log('submit was clicked')
     }
 </script>
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
     .nav img {
         width: 70px;
@@ -95,6 +97,12 @@
         font-family: 'Outfit', sans-serif;
     }
 
+    .inpt-sub-div {
+        width: 80vw;
+        display: flex;
+        align-items: flex-end;
+    }
+    
     .inpt-sub {
         margin-top: 15px;
         width: 20vw !important;
@@ -119,9 +127,8 @@
     .reg-form p {
         width: 40vw;
         color: #16e16e;
-        font-size: 1rem;
+        font-size: 1.5rem;
         font-family: 'Outfit', sans-serif;
-
     }
 
     .reg-form-div {
@@ -155,5 +162,42 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+
+    @media screen and (max-width: 1060px) {
+        .title {
+            font-size: 8rem;
+        }
+
+        .nav img {
+            width: 100px;
+        }
+
+        .reg-form p {
+            font-size: 3rem;
+            margin: 0;
+            margin-bottom: 5px;
+            width: 90vw;
+        }
+
+        .reg-form-div-container {
+            flex-direction: column;
+        }
+
+        .reg-form input {
+            width: 80vw;
+            height: 120px;
+            font-size: 3rem;
+        }
+
+        .inpt-sub {
+            width: 50vw !important;
+            height: 100px;
+            font-size: 2rem;
+        }
+
+        .reg-form-div {
+            margin-bottom: 5vw;
+        }
     }
 </style>
