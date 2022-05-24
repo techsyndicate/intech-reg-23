@@ -87,7 +87,7 @@ IndexRouter.post('/register', async (req, res) => {
         from: process.env.GMAIL_EMAIL,
         to: email,
         subject: 'InTech Registeration Details',
-        html: await renderFile('./views/email.ejs', { age: getAge(new Date("2006-02-24")), dis_token, name })
+        html: await renderFile('./views/email.ejs', { age: getAge(new Date(dob.toString())), dis_token, name })
     };
 
     transporter.sendMail(mailOptions, function (error, info) {

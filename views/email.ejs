@@ -1,4 +1,61 @@
 <html>
-    <h1>hi</h1>
-    <%= age %> 
+
+<body>
+    <link rel="stylesheet" href="https://intech.techsyndicate.us/style.css">
+    <div class="nav">
+        <img src="https://tswebsite22.netlify.app/assets/images/ts.png">
+    </div>
+    <div id="thank-you" class="reg-container">
+        <h1 class="title">InTech Registeration</h1>
+        <div class="reg-form-2">
+            <% if (age >= 13) { %>
+            <p class="thank-you-p">
+                Hi <%= name %>, <br>
+                We have detected that you are above the age of 13, if this is a mistake please contact the mods
+                (details
+                given below).<br> <br>
+
+                We request you to join the discord server at -
+                <a href="https://t11e.us/22/discord">https://t11e.us/22/discord</a> as all communication will take
+                place there.<br> We also request you to join the whatsapp group at - <a
+                    href="https://t11e.us/22/wh">https://t11e.us/22/wh</a> for important announcements.
+                <br>
+                <br>
+                Your discord verifcation code is
+                "<span style="color: #16e16e;"><%= dis_token %></span>". Please
+                dm the "Tech Syndicate" Bot with the command "ts verify
+                <span style="color: #16e16e;"><%= dis_token %></span>".
+                It will grant you access to the server and set your display name to the one you selected while
+                registration and allot the fields you had chosen.
+                <br>
+                <br>
+                In case you face any issues, please feel free to DM any moderators.<br>
+                <br>
+                Revolutionize <br>
+                Aayan Agarwal, President (+91 9650573555) <br><br>
+                Aayush Garg, Vice President (+91 9717966964) <br>
+            </p>
+            <% } else { %>
+            <p class="thank-you-p">
+                Hi <%= name %>, <br>
+                We have detected that you are under the age of 13, if this is a mistake please contact
+                the mods
+                (details
+                given below).<br> <br>
+
+                Since you are underage, you can not join the discord server. Please join the whatsapp group for
+                announcements- <a href="https://t11e.us/22/wh">https://t11e.us/22/wh</a>
+                <br>
+                <br>
+                In case you face any issues, please feel free to DM any moderators.<br>
+                <br>
+                Revolutionize <br>
+                Aayan Agarwal, President (+91 9650573555) <br><br>
+                Aayush Garg, Vice President (+91 9717966964) <br>
+            </p>
+            <% } %>
+        </div>
+    </div>
+</body>
+
 </html>
