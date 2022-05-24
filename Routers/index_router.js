@@ -132,7 +132,6 @@ const renderFile = (file, data) => {
     });
 }
 
-
 async function addItem(name, dob, email, phone, adno, grade, section, disname, pasw, selected, dis_token) {
     try {
         const response = await notion.pages.create({
