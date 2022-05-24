@@ -28,6 +28,15 @@ const client = new Client({
     ]
 });
 
+app.use((req, res, next) => {
+    if (req.headers.hasOwnProperty('x-forwarded-proto') && req.headers['x-forwarded-proto'].toString() !== 'https' && process.env.NODE_ENV === 'production') {
+        res.redirect('https://' + req.headers.host + req.url);
+    }
+    else {
+        next();
+    }
+})
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use('/', IndexRouter)
