@@ -81,14 +81,13 @@ IndexRouter.post('/register', async (req, res) => {
     const dis_token = uuidv4();
     pasw = await bcrypt.hash(pasw, saltRounds);
 
-    var res1 = await addItem(name, dob, email, phone, adno, grade, section, disname, pasw, selected, dis_token);
-    console.log(res1);
+    await addItem(name, dob, email, phone, adno, grade, section, disname, pasw, selected, dis_token);
 
     const mailOptions = {
         from: process.env.GMAIL_EMAIL,
         to: email,
         subject: 'InTech Registeration Details',
-        html: res.send(await renderFile('./views/email.ejs', { age: getAge(new Date("2006-02-24")), dis_token, name }))
+        html: await renderFile('./views/email.ejs', { age: getAge(new Date("2006-02-24")), dis_token, name })
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
