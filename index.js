@@ -5,6 +5,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
+const bodyParser = require('body-parser');
 
 //Discord
 const { Client, Intents } = require('discord.js');
@@ -28,14 +29,17 @@ const client = new Client({
 });
 
 app.set('view engine', 'ejs');
+app.use(bodyParser.json());
 app.use('/', IndexRouter)
 
 client.once('ready', c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
-    app.listen(port, () => {
-        console.log(`Example app listening on port ${port}!`);
-    });
 });
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}!`);
+});
+
 
 //On a message call the on_message function
 client.on("messageCreate", message => {

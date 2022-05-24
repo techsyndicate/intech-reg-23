@@ -1,6 +1,11 @@
 <html>
 
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+</head>
+
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <div class="nav">
         <img src="https://tswebsite22.netlify.app/assets/images/ts.png">
     </div>
@@ -14,7 +19,7 @@
                 </div>
                 <div class="reg-form-div">
                     <p for="dob">Date Of Birth</p>
-                    <input id="dob" type="text" name="dob" placeholder="date/month/year" onfocus="(this.type='date')">
+                    <input id="dob" type="date" name="dob">
                 </div>
             </div>
             <div class="reg-form-div-container">
@@ -70,7 +75,7 @@
             <% for (i in events){ %>
             <div class="reg-form-div-container">
                 <% for (a in events[i]) {%>
-                <button style="color: rgb(255, 255, 255); border: #2C2A2A solid 1px;" class="event-but"
+                <button style="color: rgb(255, 255, 255); border: #2C2A2A solid 3px;" class="event-but"
                     onclick="select('<%= events[i][a] %>')" id="<%= events[i][a] %>"><%= events[i][a] %></button>
                 <% } %>
             </div>
@@ -81,14 +86,22 @@
         </div>
 
     </div>
+    <div id="thank-you" class="reg-container">
+        <h1 class="title">Thank You</h1>
+        <div class="reg-form-2">
+            <p class="thank-you-p">Your registration is complete. You have been emailed the details to proceed further.
+            </p>
+        </div>
 </body>
 
 </html>
 
 <script>
     var selected = [];
+    var notyf = new Notyf();
 
     function submit() {
+
         var name = window.document.getElementById("name").value;
         var dob = window.document.getElementById("dob").value;
         var email = window.document.getElementById("email").value;
@@ -100,28 +113,52 @@
         var pasw = window.document.getElementById("pasw").value;
         var conpasw = window.document.getElementById("conpasw").value;
 
-        if (name && dob && email && phone && adno && classs && section && disname && pasw && conpasw) {
-            if (pasw == conpasw) {
-                window.document.getElementById("reg-container").style.display = "none";
-                window.document.getElementById("reg-container-2").style.display = "flex";
-            } else {
-                alert("Passwords do not match!");
-            }
-        } else {
-            alert("Please fill all the fields!");
+        if (!(name && dob && email && phone && adno && classs && section && disname && pasw && conpasw)) {
+            notyf.error("Please fill all the fields");
+            return;
         }
+        if (new Date(dob).getFullYear() < 2000) {
+            notyf.error("Please enter a valid date of birth");
+            return;
+        }
+        if (phone.length != 10) {
+            notyf.error("Please enter a valid phone number");
+            return;
+        }
+        // email regex
+        var re =
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!re.test(email)) {
+            notyf.error("Please enter a valid email");
+            return;
+        }
+        if (adno.length != 4) {
+            notyf.error("Please enter a valid admission number");
+            return;
+        }
+        if (classs < 1 || classs > 12) {
+            notyf.error("Please enter a valid class");
+            return;
+        }
+        if (!pasw == conpasw) {
+            notyf.error("Passwords do not match!");
+            return;
+        }
+        window.document.getElementById("reg-container").style.display = "none";
+        window.document.getElementById("reg-container-2").style.display = "flex";
+
     }
 
 
     function select(string) {
         var x = document.getElementById(string);
         if (x.style.color == "rgb(255, 255, 255)") {
-            x.style.border = "1px solid #16e16e";
+            x.style.border = "3px solid #16e16e";
             x.style.color = "#16e16e";
             selected.push(string);
         } else {
             x.style.color = "rgb(255, 255, 255)";
-            x.style.border = "1px solid #2C2A2A"
+            x.style.border = "3px solid #2C2A2A"
             var index = selected.indexOf(string);
             if (index > -1) {
                 selected.splice(index, 1);
@@ -130,8 +167,45 @@
         console.log(selected)
     }
 
-    function register() {
+    async function register() {
+        var name = window.document.getElementById("name").value;
+        var dob = window.document.getElementById("dob").value;
+        var email = window.document.getElementById("email").value;
+        var phone = window.document.getElementById("phone").value;
+        var adno = window.document.getElementById("adno").value;
+        var classs = window.document.getElementById("class").value;
+        var section = window.document.getElementById("section").value;
+        var disname = window.document.getElementById("disname").value;
+        var pasw = window.document.getElementById("pasw").value;
+        var conpasw = window.document.getElementById("conpasw").value
+        if (selected.length == 0) {
+            notyf.error("Please select atleast one field");
+            return;
+        }
+        var body = JSON.stringify({
+            name: name,
+            dob: dob,
+            email: email,
+            phone: phone,
+            adno: adno,
+            grade: classs,
+            section: section,
+            disname: disname,
+            pasw: pasw,
+            selected: selected
+        });
 
+        await fetch("/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: body
+        }).then(async (response) => {
+            response = await response.json()
+            window.document.getElementById("reg-container-2").style.display = "none";
+            window.document.getElementById("thank-you").style.display = "flex";
+        });
     }
 </script>
 
@@ -158,6 +232,16 @@
 
     #reg-container-2 {
         display: none;
+    }
+
+    #thank-you {
+        display: none;
+    }
+
+    .thank-you-p {
+        font-size: 1.5rem;
+        font-family: 'Outfit', sans-serif;
+        color: #fff;
     }
 
     .nav img {
@@ -245,6 +329,11 @@
         font-family: 'Outfit', sans-serif;
     }
 
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+
+
     .reg-container {
         display: flex;
         flex-direction: column;
@@ -256,7 +345,6 @@
         .event-but {
             width: 80vw;
             font-size: 3rem;
-            border: 5px solid #2C2A2A !important;
         }
 
         .title {
