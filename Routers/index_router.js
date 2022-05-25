@@ -86,7 +86,7 @@ IndexRouter.post('/register', async (req, res) => {
     const mailOptions = {
         from: process.env.GMAIL_EMAIL,
         to: email,
-        subject: 'InTech Registeration Details',
+        subject: 'InTech Registration Details',
         html: await renderFile('./views/email.ejs', { age: getAge(new Date(dob.toString())), dis_token, name })
     };
 
