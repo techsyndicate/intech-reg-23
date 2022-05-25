@@ -71,7 +71,7 @@ IndexRouter.post('/register', async (req, res) => {
     if (!re.test(email)) {
         return res.status(400).send("Please enter a valid email");
     }
-    if (adno.length != 4) {
+    if (adno.length < 4) {
         return res.status(400).send("Please enter a valid admission number");
     }
     if (grade < 1 || grade > 12) {
