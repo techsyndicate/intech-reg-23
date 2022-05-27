@@ -48,10 +48,10 @@ async function command(client, message) {
             await message.delete();
             return;
         }
-        var properties = (response.results[0].properties);
-
+        var properties = (await response.results[0].properties);
+        console.log(properties.Name.title[0].text.content + ' | ' + properties.grade.rich_text[0].text.content + properties.section.rich_text[0].text.content)
         try {
-            await message.member.setNickname(properties.Name.rich_text[0].text.content + ' | ' + properties.grade.rich_text[0].text.content + properties.section.rich_text[0].text.content);
+            await message.member.setNickname(properties.Name.title[0].text.content + ' | ' + properties.grade.rich_text[0].text.content + properties.section.rich_text[0].text.content);
         } catch (error) {
             console.log(error)
         }
