@@ -42,7 +42,7 @@ async function command(client, message) {
             }
         });
         console.log(JSON.parse(JSON.stringify(response)));
-        if (!response.results.length>0) {
+        if (!response.results.length > 0) {
             await message.react('❌');
             await message.author.send('Invalid token!');
             await message.delete();
@@ -51,21 +51,14 @@ async function command(client, message) {
         var properties = (response.results[0].properties);
 
         try {
-            await message.member.setNickname(properties.DisplayName.rich_text[0].text.content);
+            await message.member.setNickname(properties.Name.rich_text[0].text.content + ' | ' + properties.grade.rich_text[0].text.content + properties.section.rich_text[0].text.content);
         } catch (error) {
             console.log(error)
         }
-        if (getAge(new Date(properties.DOB.rich_text[0].text.content)) >= 13) {
-            let role = await message.guild.roles.cache.find(r => r.name == 'participant')
-            await message.react('✅');
-            await message.author.send('You are verified!');
-            await message.member.roles.add(role);
-        }
-        else {
-            console.log(getAge(new Date(properties.DOB.rich_text[0].text.content)))
-            await message.react('❌');
-            await message.author.send('You are not 13 years old! Please follow discord tos!');
-        }
+        let role = await message.guild.roles.cache.find(r => r.name == 'participant')
+        await message.react('✅');
+        await message.author.send('You are verified!');
+        await message.member.roles.add(role);
         await message.delete();
     }
 }
