@@ -76,9 +76,9 @@
                 </div>
             </div>
             <div class="reg-form-div-container-parent">
-                  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                  <label style="color: #16e16e;" for="vehicle1">I consent for my child if above 13 to join Discord
-                      Server of inTech (filled by parent). </label><br>
+                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                <label style="color: #16e16e; font-size: 1.3rem;" for="vehicle1">
+                    I consent for my child if above 13 to join Discord Server of inTech (filled by parent). </label><br>
             </div>
         </div>
         <div class="inpt-sub-div-1">
@@ -129,7 +129,7 @@
         var disname = window.document.getElementById("disname").value;
         var pasw = window.document.getElementById("pasw").value;
         var conpasw = window.document.getElementById("conpasw").value;
-        if (!vehicle1){
+        if (!vehicle1) {
             notyf.error("Please ask your parents to consent for Discord!");
             return;
         }
@@ -237,12 +237,14 @@
         justify-content: center;
         align-items: center;
         width: 100%;
+
     }
 
     .reg-form-div-container-parent input {
-        width: max-content !important;
+        width: 20px !important;
         color: #16e16e;
     }
+
     .event-but {
         background-color: black;
         padding: 15px 32px;
@@ -409,8 +411,10 @@
             font-size: 3rem;
         }
 
-        .inpt-sub-div {
+        .inpt-sub-div,
+        .inpt-sub-div-1 {
             width: 80vw;
+            margin-bottom: 50px;
         }
 
         .reg-form-div {
@@ -420,6 +424,17 @@
         .thank-you-p {
             font-size: 3rem;
             text-align: center;
+        }
+        .reg-form-div-container-parent input {
+            width: 100px !important;
+        }
+        .reg-form-div-container-parent label {
+            font-size: 2.3rem !important; 
+            margin-left: 35px;
+        }
+        .reg-form-div-container-parent {
+            width: 80vw;
+            margin-bottom: 50px;
         }
     }
 </style>
