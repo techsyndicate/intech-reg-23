@@ -16,6 +16,62 @@
 </head>
 
 <body>
-    
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <div id="thank-you" class="reg-container">
+        <h1 class="title">inTech Password Reset</h1>
+        <div class="reg-form-2">
+            <p class="thank-you-p">
+                Hi <%= name %>, <br>
+                You have requested a password reset. Please enter the new password in the field below.<br> <br>
+            </p>
+            <div class="reg-form-div-container">
+                <div class="reg-form-div">
+                    <p class="pip" for="pasw">Password</p>
+                    <input type="password" id="pasw" name="pasw" placeholder="John@Doe@Password">
+                </div>
+                <div class="reg-form-div">
+                    <p class="pip" for="conpasw">Confirm Password</p>
+                    <input type="password" id="conpasw" name="conpasw" placeholder="John@Doe@Password">
+                </div>
+            </div>
+        </div>
+        <div class="inpt-sub-div-1">
+            <button class="inpt-sub" onClick="submit()">Submit</button>
+        </div>
+    </div>
 </body>
+<script>
+    var notyf = new Notyf();
+
+    async function submit() {
+        var pasw = document.getElementById("pasw").value;
+        var conpasw = document.getElementById("conpasw").value;
+        if (pasw != conpasw) {
+            notyf.error("Passwords do not match");
+            return;
+        }
+        var token = "<%= token %>";
+        var data = {
+            passwd: pasw
+        };
+        var response = await fetch("/callback/" + token, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(async res => {
+            let data = await res.json();
+            console.log(data)
+            if (data.status) {
+                notyf.success("Password changed successfully");
+                window.location.href = "https://encryptid.techsyndicate.us/register";
+            } else {
+                notyf.error(data.msg);
+            }
+        });
+    }
+</script>
+
 </html>

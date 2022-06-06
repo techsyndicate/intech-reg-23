@@ -1,39 +1,48 @@
 const express = require('express');
 const router = express.Router();
 const { Client } = require("@notionhq/client");
-const nodemailer = require('nodemailer');
-const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 const path = require('path');
-const ejs = require("ejs");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-router.get('/:id', (req,res)=>{
-    var token = req.params.id;
 
-    var rawdata = fs.readFileSync(path.resolve('./forgot.json'));
-    var forgot = JSON.parse(rawdata)
-    var user = forgot.forgots.find(user => user.id === token);
-    if(user === undefined){
-        return res.send({status: false, msg: "Invalid token!"})
-    }
-    res.render('forgot', {token: token})
+const notion = new Client({
+    auth: process.env.NOTION_TOKEN,
 })
+const databaseId = process.env.NOTION_DATABASE_ID
 
-router.post('/:id', async (req,res)=>{
-    var passwd = req.body.password;
+router.get('/:id', async (req, res) => {
     var token = req.params.id;
     var rawdata = fs.readFileSync(path.resolve('./forgot.json'));
     var forgot = JSON.parse(rawdata)
     var user = forgot.forgots.find(user => user.id === token);
-    if(user === undefined){
-        return res.send({status: false, msg: "Invalid token!"})
+    if (user === undefined) {
+        return res.send({ status: false, msg: "Invalid token!" })
     }
     var user_no = await getUserFromEmail(user.email);
-    if(user_no === undefined){
-        return res.send({status: false, msg: "User not found!"})
+    if (user_no === undefined) {
+        return res.send({ status: false, msg: "User not found!" })
     }
-    res.render('forgotem', { token: token, name: user_no.properties.Name.title[0].plain_text })
+    res.render('forgot', { token: token, name: user_no.properties.Name.title[0].plain_text })
 });
+
+router.post('/:id', async (req, res) => {
+    var passwd = req.body.passwd;
+    var token = req.params.id;
+    var rawdata = fs.readFileSync(path.resolve('./forgot.json'));
+    var forgot = JSON.parse(rawdata)
+    var user = forgot.forgots.find(user => user.id === token);
+    if (user === undefined) {
+        return res.send({ status: false, msg: "Invalid token!" })
+    }
+    var user_no = await getUserFromEmail(user.email);
+    if (user_no === undefined) {
+        return res.send({ status: false, msg: "User not found!" })
+    }
+    await updatePassword(user_no, passwd);
+    res.send({ status: true, msg: "Password updated!" })
+})
 
 const getUserFromEmail = async (email) => {
     //check if email in notion
@@ -55,5 +64,22 @@ const getUserFromEmail = async (email) => {
     return response.results[0];
 }
 
+const updatePassword = async (user, password) => {
+    console.log(password, saltRounds);
+    return await notion.pages.update({
+        page_id: user.id,
+        properties: {
+            "Password": {
+                rich_text: [
+                    {
+                        text: {
+                            content: (await bcrypt.hash(password, saltRounds)).toString()
+                        }
+                    }
+                ]
+            }
+        }
+    })
+}
 
 module.exports = router;
