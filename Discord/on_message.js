@@ -31,7 +31,7 @@ async function command(client, message) {
         var response = await notion.databases.query({
             database_id: databaseId,
             filter: {
-                or: [
+                and: [
                     {
                         "property": 'Discord Secret',
                         "rich_text": {

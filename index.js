@@ -11,6 +11,9 @@ const bodyParser = require('body-parser');
 const { Client, Intents } = require('discord.js');
 const on_message = require('./Discord/on_message');
 const IndexRouter = require('./Routers/index_router');
+const ForgotRouter = require('./Routers/forgot');
+
+const CallbackRouter = require('./Routers/callback');
 const token = process.env.TOKEN;
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS,
@@ -41,7 +44,9 @@ app.use((req, res, next) => {
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
-app.use('/', IndexRouter)
+app.use('/', IndexRouter);
+app.use('/forgot', ForgotRouter);
+app.use('/callback', CallbackRouter);
 
 client.once('ready', c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
