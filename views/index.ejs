@@ -66,16 +66,6 @@
                     <input type="text" id="disname" name="disname" placeholder="johnnygames">
                 </div>
             </div>
-            <div class="reg-form-div-container">
-                <div class="reg-form-div">
-                    <p for="pasw">Password</p>
-                    <input type="password" id="pasw" name="pasw" placeholder="John@Doe@Password">
-                </div>
-                <div class="reg-form-div">
-                    <p for="conpasw">Confirm Password</p>
-                    <input type="password" id="conpasw" name="conpasw" placeholder="John@Doe@Password">
-                </div>
-            </div>
             <div class="reg-form-div-container-parent">
                 <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
                 <label style="color: #16e16e; font-size: 1.3rem;" for="vehicle1">
@@ -128,13 +118,11 @@
         var classs = window.document.getElementById("class").value;
         var section = window.document.getElementById("section").value;
         var disname = window.document.getElementById("disname").value;
-        var pasw = window.document.getElementById("pasw").value;
-        var conpasw = window.document.getElementById("conpasw").value;
         if (!vehicle1) {
             notyf.error("Please ask your parents to consent for Discord!");
             return;
         }
-        if (!(name && dob && email && phone && adno && classs && section && disname && pasw && conpasw)) {
+        if (!(name && dob && email && phone && adno && classs && section && disname)) {
             notyf.error("Please fill all the fields");
             return;
         }
@@ -159,10 +147,6 @@
         }
         if (classs < 1 || classs > 12) {
             notyf.error("Please enter a valid class");
-            return;
-        }
-        if (!pasw == conpasw) {
-            notyf.error("Passwords do not match!");
             return;
         }
         window.document.getElementById("reg-container").style.display = "none";
@@ -197,8 +181,6 @@
         var classs = window.document.getElementById("class").value;
         var section = window.document.getElementById("section").value;
         var disname = window.document.getElementById("disname").value;
-        var pasw = window.document.getElementById("pasw").value;
-        var conpasw = window.document.getElementById("conpasw").value
         if (selected.length == 0) {
             notyf.error("Please select atleast one field");
             return;
@@ -212,7 +194,6 @@
             grade: classs,
             section: section,
             disname: disname,
-            pasw: pasw,
             selected: selected
         });
         window.document.getElementById('regis').disabled = true;
