@@ -205,6 +205,11 @@
             body: body
         }).then(async (response) => {
             response = await response.json()
+            if (response.hasOwnProperty("success") && response.success == false) {
+                notyf.error(response.msg);
+                window.document.getElementById('regis').disabled = false;
+                return;
+            }
             window.document.getElementById("reg-container-2").style.display = "none";
             window.document.getElementById("thank-you").style.display = "flex";
         });

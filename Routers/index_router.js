@@ -93,7 +93,10 @@ IndexRouter.post('/register', async (req, res) => {
         }
     })
     if (results.length > 0) {
-        return res.status(400).send("User already exists");
+        return res.send({
+            success: false,
+            msg: "user-exists"
+        })
     }
 
     const dis_token = uuidv4();
