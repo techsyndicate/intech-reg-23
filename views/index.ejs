@@ -126,7 +126,7 @@
             notyf.error("Please fill all the fields");
             return;
         }
-        if (new Date(dob).getFullYear() < 2000) {
+        if (new Date(dob).getFullYear() < 2000 || new Date(dob).getFullYear() > 2015) {
             notyf.error("Please enter a valid date of birth");
             return;
         }
