@@ -141,7 +141,7 @@
             notyf.error("Please enter a valid email");
             return;
         }
-        if (adno.length < 4) {
+        if (adno.length < 4 || adno.length > 6) {
             notyf.error("Please enter a valid admission number");
             return;
         }
