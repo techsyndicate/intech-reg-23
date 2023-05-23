@@ -82,7 +82,6 @@ IndexRouter.post('/register', async (req, res) => {
     }
 
     const dis_token = uuidv4();
-    pasw = await bcrypt.hash(pasw, saltRounds);
 
     await addItem(name, dob, email, phone, adno, grade, section, disname, pasw, selected, dis_token);
 
