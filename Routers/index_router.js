@@ -80,6 +80,19 @@ IndexRouter.post('/register', async (req, res) => {
     if (grade < 1 || grade > 12) {
         return res.status(400).send("Please enter a valid class");
     }
+    //check if user already exists
+    const { results } = await notion.databases.query({
+        database_id: databaseId,
+        filter: {
+            property: 'Email',
+            text: {
+                equals: email
+            }
+        }
+    });
+    if (results.length > 0) {
+        return res.status(400).send("User already exists");
+    }
 
     const dis_token = uuidv4();
 
