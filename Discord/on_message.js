@@ -9,10 +9,13 @@ const databaseId = process.env.NOTION_DATABASE_ID
 
 module.exports = async (client, message) => {
     if (!message.author.bot) {
-        if (message.content.startsWith('ts ')) {
-            message.content = message.content.slice(3);
-            if (message.content.length > 0) {
-                command(client, message);
+        console.log(message.channel.id)
+        if (message.channel.id == '1110609203208388698') {
+            if (message.content.startsWith('ts ')) {
+                message.content = message.content.slice(3);
+                if (message.content.length > 0) {
+                    command(client, message);
+                }
             }
         }
     };

@@ -17,23 +17,26 @@ const databaseId = process.env.NOTION_DATABASE_ID
 const events = [[
     "App Development",
     "Web Development",
-    "2D design",
-    "UI Design"
+    "Game Development",
+    "Encryptid | Cryptic Hunt"
 ], ["3D Design",
+    "2D Design",
+    "UI Design",
     "A/V editing",
-    "Quiz",
-    "Crossword"
-], [
-    "Cryptic Hunt",
+], ["Quiz",
+    "Crossword",
     "Gaming",
-    "Competitive Programming",
     "Photography"
 ], [
+    "Competitive Programming",
     "Audio Mixing",
     "Film Making",
     "Group Discussion",
-    "Hardware"
-]
+], [
+    "Hardware",
+    "Cubing 2 by 2", 
+    "Cubing 3 by 3", 
+    "ML/AI Challenge"]
 ];
 
 IndexRouter.get("/", (req, res) => {
