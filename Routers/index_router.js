@@ -95,7 +95,7 @@ IndexRouter.post('/register', async (req, res) => {
     if (results.length > 0) {
         return res.send({
             success: false,
-            msg: "user-exists"
+            msg: "User with this email already exists!"
         })
     }
 
