@@ -66,14 +66,14 @@ async function command(client, message) {
     }
 }
 
-function sendMessage(message, content) {
-    new Promise((resolve, reject) => {
+async function sendMessage(message, content) {
+    new Promise(async(resolve, reject) => {
         try {
-            message.author.send(content);
+            await message.author.send(content);
             resolve();
         }
         catch (error) {
-            message.channel.send("You have disabled DMs from server members. Please enable them and resend verification code.");
+            await message.channel.send("You have disabled DMs from server members. Please enable them and resend verification code.");
             resolve();
         }
     })
