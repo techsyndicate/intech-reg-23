@@ -26,7 +26,7 @@ async function command(client, message) {
         token = message.content.slice(7);
         if (token.length == 0) {
             await message.react('❌');
-            await sendMessage(message,'Please use a valid token!').then(() => {return});
+            await sendMessage(message,'Please use a valid token!');
             await message.delete();
             return;
         }
@@ -47,7 +47,7 @@ async function command(client, message) {
         console.log(JSON.parse(JSON.stringify(response)));
         if (!response.results.length > 0) {
             await message.react('❌');
-            await sendMessage(message, 'Invalid token!').then(() => { return });
+            await sendMessage(message, 'Invalid token!');
             await message.delete();
             return;
         }
@@ -60,7 +60,7 @@ async function command(client, message) {
         }
         let role = await message.guild.roles.cache.find(r => r.name == 'participant')
         await message.react('✅');
-        await sendMessage(message, 'You are verified!').then(() => { return });
+        await sendMessage(message, 'You are verified!');
         await message.member.roles.add(role);
         await message.delete();
     }
