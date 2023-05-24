@@ -26,7 +26,7 @@ async function command(client, message) {
         token = message.content.slice(7);
         if (token.length == 0) {
             await message.react('❌');
-            await message.author.send('Please use a valid token!');
+            await sendMessage(message,'Please use a valid token!').then(() => {return});
             await message.delete();
             return;
         }
@@ -47,7 +47,7 @@ async function command(client, message) {
         console.log(JSON.parse(JSON.stringify(response)));
         if (!response.results.length > 0) {
             await message.react('❌');
-            await message.author.send('Invalid token!');
+            await sendMessage(message, 'Invalid token!').then(() => { return });
             await message.delete();
             return;
         }
@@ -60,30 +60,21 @@ async function command(client, message) {
         }
         let role = await message.guild.roles.cache.find(r => r.name == 'participant')
         await message.react('✅');
-        await message.author.send('You are verified!');
+        await sendMessage(message, 'You are verified!').then(() => { return });
         await message.member.roles.add(role);
         await message.delete();
     }
 }
 
-function getAge(birthDate) {
-    var now = new Date();
-
-    function isLeap(year) {
-        return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
-    }
-
-    // days since the birthdate    
-    var days = Math.floor((now.getTime() - birthDate.getTime()) / 1000 / 60 / 60 / 24);
-    var age = 0;
-    // iterate the years
-    for (var y = birthDate.getFullYear(); y <= now.getFullYear(); y++) {
-        var daysInYear = isLeap(y) ? 366 : 365;
-        if (days >= daysInYear) {
-            days -= daysInYear;
-            age++;
-            // increment the age only if there are available enough days for the year.
+function sendMessage(message, content) {
+    new Promise((resolve, reject) => {
+        try {
+            message.author.send(content);
+            resolve();
         }
-    }
-    return age;
+        catch (error) {
+            message.channel.send("You have disabled DMs from server members. Please enable them and resend verification code.");
+            resolve();
+        }
+    })
 }
