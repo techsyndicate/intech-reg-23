@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 //Discord
 const { Client, Intents } = require('discord.js');
@@ -55,6 +56,19 @@ client.once('ready', c => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`);
 });
+
+process.on('uncaughtException', function (err) {
+    //log to discord webhook
+    fetch(process.env.WEBHOOK, {
+        method: 'post',
+        body: JSON.stringify({
+            content: `Uncaught Exception: ${err}`
+        }),
+        headers: { 'Content-Type': 'application/json' },
+    })
+    console.log('Caught exception: ' + err);
+});
+
 
 
 //On a message call the on_message function

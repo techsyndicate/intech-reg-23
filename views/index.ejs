@@ -37,7 +37,7 @@
             <div class="reg-form-div-container">
                 <div class="reg-form-div">
                     <p for="email">School Email</p>
-                    <input type="text" id="email" name="email" placeholder="john.doe@ais.amity.edu">
+                    <input type="text" id="email" name="email" oninput="removeSpace()" placeholder="john.doe@ais.amity.edu">
                 </div>
                 <div class="reg-form-div">
                     <p for="phone">Phone Number</p>
@@ -108,11 +108,17 @@
     var selected = [];
     var notyf = new Notyf();
 
+    function removeSpace() {
+        var email = window.document.getElementById("email").value;
+        email = email.replace(/\s/g, '');
+        window.document.getElementById("email").value = email;
+    }
+
     function submit() {
         var vehicle1 = document.getElementById("vehicle1").checked;
         var name = window.document.getElementById("name").value;
         var dob = window.document.getElementById("dob").value;
-        var email = window.document.getElementById("email").value;
+        var email = window.document.getElementById("email").value.trim();
         var phone = window.document.getElementById("phone").value;
         var adno = window.document.getElementById("adno").value;
         var classs = window.document.getElementById("class").value;
